@@ -1,7 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import { ISac } from '@modules/sac/interfaces/sac.interfaces';
-import { Sac } from '@modules/sac/models/Sac';
+import { Sac } from '@modules/sac/models/sac';
 
 export default class SacsRepository implements ISac.Repository<Sac> {
   private ormRepository: Repository<Sac>;

@@ -1,5 +1,5 @@
 //Importando nossa entidade (tabela) para podermos aplicarmos métodos como find, update, create e etc.
-import { Sac } from '../models/Sac';
+import { Sac } from '../models/sac';
 
 import { Request, Response } from 'express';
 

@@ -4,22 +4,26 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
+import Sac from '@modules/sac/models/sac';
 
-//import { Exclude, Expose } from 'class-transformer';
-
-@Entity('sacs')
-export class Sac extends BaseEntity {
+@Entity('sacs_categories')
+export default class Issue extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: true })
-  url: string;
+  @Column()
+  title: string;
 
-  @Column('text')
+  @Column({ nullable: true })
   description: string;
+
+  @Column({ type: 'uuid' })
+  sac_id: string;
 
   @Column({ default: false })
   is_deleted: boolean;

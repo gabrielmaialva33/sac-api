@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { SacCategories } from '../models/Issue';
+import { SacCategories } from '../models/issue';
 
 export const getSacCategories = async (req: Request, res: Response) => {
   const categoriesList = await SacCategories.find();

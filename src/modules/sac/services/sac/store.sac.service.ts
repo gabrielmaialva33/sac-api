@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import { ISac } from '@modules/sac/interfaces/sac.interfaces';
-import { Sac } from '@modules/sac/models/Sac';
+import { Sac } from '@modules/sac/models/sac';
 import AppError from '@shared/errors/AppError';
 
 @injectable()
