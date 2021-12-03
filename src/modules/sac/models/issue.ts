@@ -9,6 +9,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
+
 import Sac from '@modules/sac/models/sac';
 
 @Entity('sacs_categories')
@@ -24,6 +25,10 @@ export default class Issue extends BaseEntity {
 
   @Column({ type: 'uuid' })
   sac_id: string;
+
+  @ManyToOne(() => Sac)
+  @JoinColumn({ name: 'sac_id' })
+  sacs: Sac[];
 
   @Column({ default: false })
   is_deleted: boolean;

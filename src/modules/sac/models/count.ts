@@ -3,9 +3,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
+
+import Issue from './issue';
 
 @Entity('counts')
 export default class Count extends BaseEntity {
@@ -14,6 +18,10 @@ export default class Count extends BaseEntity {
 
   @Column({ type: 'uuid' })
   issue_id: string;
+
+  @ManyToOne(() => Issue)
+  @JoinColumn({ name: 'issue_id' })
+  issues: Issue[];
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })
   created_at: Date;
