@@ -18,9 +18,6 @@ export class Sac extends BaseEntity {
   @Column({ nullable: true })
   url: string;
 
-  @Column()
-  category: string;
-
   @Column('text')
   description: string;
 
