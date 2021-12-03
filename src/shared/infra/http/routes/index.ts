@@ -1,11 +1,11 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+
+import sacsRouter from '@modules/sac/routes/sac.routes';
+import issueRouter from '@modules/sac/routes/issue.routes';
 
 const routes = Router();
 
-routes.get('/', (req: Request, res: Response) => {
-  return res.json({
-    hell: 'satan'
-  });
-});
+routes.use('/sacs', sacsRouter);
+routes.use('/issues', issueRouter);
 
 export default routes;

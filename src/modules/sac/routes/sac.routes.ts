@@ -1,17 +1,10 @@
 import { Router } from 'express';
 
-import { createSac, getSacList } from '../controllers/SacController';
-import {
-  createSacCategory,
-  getSacCategories
-} from '../controllers/CategoryController';
+import SacsController from '@modules/sac/controllers/sacs.controller';
 
-const routes = Router();
+const sacsRouter = Router();
 
-routes.post('/sac/categories/create', createSacCategory);
-routes.get('/sac/categories', getSacCategories);
+sacsRouter.get('/', new SacsController().index);
+sacsRouter.post('/', new SacsController().store);
 
-routes.post('/sac/create', createSac);
-routes.get('/sac/list', getSacList);
-
-export default routes;
+export default sacsRouter;

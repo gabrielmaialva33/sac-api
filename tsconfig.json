@@ -9,23 +9,14 @@
     "baseUrl": "./src",
     "allowJs": true,
     "paths": {
-      "@modules/*": [
-        "modules/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-      "@shared/*": [
-        "shared/*"
-      ]
+      "@modules/*": ["modules/*"],
+      "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": [
-      "./custom_typings",
-      "./node_modules/@types"
-    ]
+    "typeRoots": ["./custom_typings", "./node_modules/@types"]
   }
 }

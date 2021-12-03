@@ -22,6 +22,11 @@ export class createSacs1638552358854 implements MigrationInterface {
             type: 'varchar'
           },
           {
+            name: 'description',
+            type: 'text',
+            isNullable: true
+          },
+          {
             name: 'is_deleted',
             type: 'boolean',
             default: false

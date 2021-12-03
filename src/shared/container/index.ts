@@ -1,10 +1,14 @@
 import { container } from 'tsyringe';
 
-import { Sac } from '@modules/sac/models/sac';
 import { ISac } from '@modules/sac/interfaces/sac.interfaces';
 import SacsRepository from '@modules/sac/repositories/sacs.repository';
 
-container.registerSingleton<ISac.Repository<Sac>>(
-  'SacsRepository',
-  SacsRepository
+import { IIssue } from '@modules/sac/interfaces/issue.interfaces';
+import IssuesRepository from '@modules/sac/repositories/issues.repository';
+
+container.registerSingleton<ISac.Repository>('SacsRepository', SacsRepository);
+
+container.registerSingleton<IIssue.Repository>(
+  'IssuesRepository',
+  IssuesRepository
 );

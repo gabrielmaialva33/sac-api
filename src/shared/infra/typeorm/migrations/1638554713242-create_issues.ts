@@ -19,7 +19,7 @@ export class createIssues1638554713242 implements MigrationInterface {
             default: 'uuid_generate_v4()'
           },
           {
-            name: 'name',
+            name: 'title',
             type: 'varchar',
             isUnique: true
           },

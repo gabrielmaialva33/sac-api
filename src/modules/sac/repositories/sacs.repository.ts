@@ -1,17 +1,21 @@
 import { getRepository, Repository } from 'typeorm';
 
 import { ISac } from '@modules/sac/interfaces/sac.interfaces';
-import { Sac } from '@modules/sac/models/sac';
+import Sac from '@modules/sac/entities/sac';
 
-export default class SacsRepository implements ISac.Repository<Sac> {
+export default class SacsRepository implements ISac.Repository {
   private ormRepository: Repository<Sac>;
 
   constructor() {
     this.ormRepository = getRepository(Sac);
   }
 
-  public async list(): Promise<Sac[]> {
-    return this.ormRepository.createQueryBuilder('sacs').select().getMany();
+  public async index(): Promise<Sac[]> {
+    return this.ormRepository
+      .createQueryBuilder('sacs')
+      .select()
+      .where({ is_deleted: false })
+      .getMany();
   }
 
   public async store(data: ISac.DTO.Store): Promise<Sac> {

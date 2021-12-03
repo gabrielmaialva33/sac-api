@@ -6,15 +6,15 @@ import Sac from '@modules/sac/entities/sac';
 import AppError from '@shared/errors/AppError';
 
 @injectable()
-export class StoreSacService {
+export class IndexSacService {
   constructor(
     @inject('SacsRepository')
     private sacsRepository: ISac.Repository
   ) {}
 
-  public async execute(data: ISac.DTO.Store): Promise<Sac> {
+  public async execute(): Promise<Sac[]> {
     try {
-      return this.sacsRepository.store(data);
+      return this.sacsRepository.index();
     } catch (err) {
       throw new AppError(`${err}`, 500);
     }
