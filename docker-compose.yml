@@ -26,6 +26,7 @@ services:
     container_name: sac_postgres
     restart: always
     environment:
+      - TZ=America/Sao_Paulo
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres

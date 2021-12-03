@@ -5,13 +5,9 @@ FROM node:latest
 
 WORKDIR /home/node/
 
-COPY package*.json ./
-
-RUN yarn add typeorm --global
+COPY . .
 
 RUN yarn
-
-COPY . .
 
 EXPOSE 3333
 

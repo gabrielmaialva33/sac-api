@@ -1,8 +1,4 @@
-#entrypoint.sh
-
-#/bin/bash
-# Docker entrypoint script.
-
-# Create, migrate, and seed database if it doesn't exist.
-
+yarn ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run
 yarn start
+
+

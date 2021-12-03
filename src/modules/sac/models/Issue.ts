@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 @Entity('sacs_categories')
-export class Categories extends BaseEntity {
+export class Issue extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

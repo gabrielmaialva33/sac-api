@@ -1,10 +1,15 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey
+} from 'typeorm';
 
-export class createSacs1638552358854 implements MigrationInterface {
+export class createIssues1638554713242 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'sacs',
+        name: 'issues',
         columns: [
           {
             name: 'id',
@@ -15,11 +20,18 @@ export class createSacs1638552358854 implements MigrationInterface {
           },
           {
             name: 'name',
-            type: 'varchar'
+            type: 'varchar',
+            isUnique: true
           },
           {
-            name: 'url',
-            type: 'varchar'
+            name: 'description',
+            type: 'text',
+            isNullable: true
+          },
+          {
+            name: 'sac_id',
+            type: 'uuid',
+            isNullable: false
           },
           {
             name: 'is_deleted',
@@ -45,9 +57,22 @@ export class createSacs1638552358854 implements MigrationInterface {
         ]
       })
     );
+
+    await queryRunner.createForeignKey(
+      'issues',
+      new TableForeignKey({
+        name: 'sac_fk',
+        columnNames: ['sac_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'sacs',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('sacs');
+    await queryRunner.dropForeignKey('issues', 'sac_fk');
+    await queryRunner.dropTable('issues');
   }
 }
