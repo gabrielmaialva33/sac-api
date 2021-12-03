@@ -11,6 +11,7 @@ export namespace ISac {
       category: string;
       description: string;
     }
+
     export interface Update {
       url?: string;
       category?: string;

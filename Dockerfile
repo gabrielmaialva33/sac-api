@@ -7,10 +7,13 @@ WORKDIR /home/node/
 
 COPY package*.json ./
 
+RUN yarn add typeorm --global
+
 RUN yarn
 
 COPY . .
 
 EXPOSE 3333
 
-CMD ["yarn", "dev"]
+CMD ["/home/node/entrypoint.sh"]
+
