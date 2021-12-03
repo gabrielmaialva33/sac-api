@@ -1,0 +1,2 @@
+CREATE DATABASE sac_api;
+GRANT ALL PRIVILEGES ON DATABASE sac_api TO postgres
