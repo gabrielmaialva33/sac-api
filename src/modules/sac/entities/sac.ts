@@ -27,15 +27,23 @@ export default class Sac extends BaseEntity {
   @OneToMany(() => Issue, (issue) => issue.sac, { cascade: true })
   issues: Issue[];
 
-  @Column({ default: false })
+  @Column({ default: false, select: false })
   is_deleted: boolean;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })
+  @CreateDateColumn({
+    name: 'created_at',
+    type: 'timestamp with time zone',
+    select: false
+  })
   created_at: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp with time zone' })
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamp with time zone',
+    select: false
+  })
   updated_at: Date;
 
-  @DeleteDateColumn({ nullable: true })
+  @DeleteDateColumn({ nullable: true, select: false })
   deleted_at: Date;
 }

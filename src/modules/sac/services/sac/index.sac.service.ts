@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import { ISac } from '@modules/sac/interfaces/sac.interfaces';
-import Sac from '@modules/sac/entities/sac';
+import { PaginationAwareObject } from 'typeorm-pagination/dist/helpers/pagination';
 
 import AppError from '@shared/errors/AppError';
 
@@ -12,7 +12,7 @@ export class IndexSacService {
     private sacsRepository: ISac.Repository
   ) {}
 
-  public async execute(): Promise<Sac[]> {
+  public async execute(): Promise<PaginationAwareObject> {
     try {
       return this.sacsRepository.index();
     } catch (err) {

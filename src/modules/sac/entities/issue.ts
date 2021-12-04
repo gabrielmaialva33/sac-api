@@ -25,7 +25,7 @@ export default class Issue extends BaseEntity {
   @Column({ nullable: true })
   description: string;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'uuid', select: false })
   sac_id: string;
 
   @ManyToOne(() => Sac, (sac) => sac.issues)
@@ -35,15 +35,23 @@ export default class Issue extends BaseEntity {
   @OneToMany(() => Count, (count) => count.issue)
   counts: Count;
 
-  @Column({ default: false })
+  @Column({ default: false, select: false })
   is_deleted: boolean;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })
+  @CreateDateColumn({
+    name: 'created_at',
+    type: 'timestamp with time zone',
+    select: false
+  })
   created_at: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp with time zone' })
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamp with time zone',
+    select: false
+  })
   updated_at: Date;
 
-  @DeleteDateColumn({ nullable: true })
+  @DeleteDateColumn({ nullable: true, select: false })
   deleted_at: Date;
 }

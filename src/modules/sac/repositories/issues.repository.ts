@@ -1,6 +1,8 @@
 import { getRepository, Repository } from 'typeorm';
 
 import { IIssue } from '@modules/sac/interfaces/issue.interfaces';
+import { PaginationAwareObject } from 'typeorm-pagination/dist/helpers/pagination';
+
 import Issue from '@modules/sac/entities/issue';
 
 export default class IssuesRepository implements IIssue.Repository {
@@ -10,12 +12,12 @@ export default class IssuesRepository implements IIssue.Repository {
     this.ormRepository = getRepository(Issue);
   }
 
-  public async index(): Promise<Issue[]> {
+  public async index(): Promise<PaginationAwareObject> {
     return this.ormRepository
       .createQueryBuilder('issues')
       .select()
       .where({ is_deleted: false })
-      .getMany();
+      .paginate();
   }
 
   public async store(data: IIssue.DTO.Store): Promise<Issue> {

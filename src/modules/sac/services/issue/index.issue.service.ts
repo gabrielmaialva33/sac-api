@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IIssue } from '@modules/sac/interfaces/issue.interfaces';
-import Issue from '@modules/sac/entities/issue';
+import { PaginationAwareObject } from 'typeorm-pagination/dist/helpers/pagination';
 
 import AppError from '@shared/errors/AppError';
 
@@ -12,7 +12,7 @@ export class IndexIssueService {
     private issuesRepository: IIssue.Repository
   ) {}
 
-  public async execute(): Promise<Issue[]> {
+  public async execute(): Promise<PaginationAwareObject> {
     try {
       return this.issuesRepository.index();
     } catch (err) {
