@@ -4,9 +4,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
+import Issue from './issue';
 
 @Entity('sacs')
 export default class Sac extends BaseEntity {
@@ -21,6 +23,9 @@ export default class Sac extends BaseEntity {
 
   @Column('text')
   description: string;
+
+  @OneToMany(() => Issue, (issue) => issue.sac, { cascade: true })
+  issues: Issue[];
 
   @Column({ default: false })
   is_deleted: boolean;

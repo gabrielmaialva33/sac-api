@@ -19,9 +19,9 @@ export default class Count extends BaseEntity {
   @Column({ type: 'uuid' })
   issue_id: string;
 
-  @ManyToOne(() => Issue)
+  @ManyToOne(() => Issue, (issue) => issue.counts)
   @JoinColumn({ name: 'issue_id' })
-  issues: Issue[];
+  issue: Issue;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })
   created_at: Date;

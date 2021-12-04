@@ -12,9 +12,9 @@ export default class SacsRepository implements ISac.Repository {
 
   public async index(): Promise<Sac[]> {
     return this.ormRepository
-      .createQueryBuilder('sacs')
-      .select()
+      .createQueryBuilder('sac')
       .where({ is_deleted: false })
+      .leftJoinAndSelect('sac.issues', 'issue')
       .getMany();
   }
 

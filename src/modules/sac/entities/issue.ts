@@ -6,11 +6,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 
 import Sac from '@modules/sac/entities/sac';
+import Count from '@modules/sac/entities/count';
 
 @Entity('issues')
 export default class Issue extends BaseEntity {
@@ -26,9 +28,12 @@ export default class Issue extends BaseEntity {
   @Column({ type: 'uuid' })
   sac_id: string;
 
-  @ManyToOne(() => Sac)
+  @ManyToOne(() => Sac, (sac) => sac.issues)
   @JoinColumn({ name: 'sac_id' })
-  sacs: Sac[];
+  sac: Sac;
+
+  @OneToMany(() => Count, (count) => count.issue)
+  counts: Count;
 
   @Column({ default: false })
   is_deleted: boolean;
