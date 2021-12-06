@@ -1,14 +1,18 @@
 {
   "type": "postgres",
-  "host": "postgres",
+  "host": "localhost", # use postgres for docker
   "port": 5432,
   "username": "postgres",
   "password": "postgres",
   "database": "sac_api",
-  "synchronize": true,
+  "synchronize": false,
   "logging": false,
-  "entities": ["./src/modules/**/infra/typeorm/entities/*.ts"],
-  "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
+  "entities": [
+    "./src/modules/**/entities/*.ts"
+  ],
+  "migrations": [
+    "./src/shared/infra/typeorm/migrations/*.ts"
+  ],
   "cli": {
     "migrationsDir": "./src/shared/infra/typeorm/migrations"
   }
