@@ -33,7 +33,7 @@ export default class Issue extends BaseEntity {
   sac: Sac;
 
   @OneToMany(() => Count, (count) => count.issue)
-  counts: Count;
+  counts: Count[];
 
   @Column({ default: false, select: false })
   is_deleted: boolean;

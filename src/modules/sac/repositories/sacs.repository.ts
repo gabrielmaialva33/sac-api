@@ -16,7 +16,8 @@ export default class SacsRepository implements ISac.Repository {
     return this.ormRepository
       .createQueryBuilder('sac')
       .where({ is_deleted: false })
-      .leftJoinAndSelect('sac.issues', 'issue')
+      .leftJoinAndSelect('sac.issues', 'issue', 'issue.is_deleted is false')
+      .loadRelationCountAndMap('sac.total', 'sac.issues')
       .paginate();
   }
 

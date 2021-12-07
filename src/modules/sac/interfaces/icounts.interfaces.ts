@@ -1,29 +1,25 @@
-import Issue from '@modules/sac/entities/issue';
 import { PaginationAwareObject } from 'typeorm-pagination/dist/helpers/pagination';
+import Count from '@modules/sac/entities/count';
 
-export namespace IIssue {
+export namespace ICount {
   export interface Repository {
     index(params: DTO.Index): Promise<PaginationAwareObject>;
-    store(data: DTO.Store): Promise<Issue>;
-    update(issue: Issue): Promise<Issue>;
+    store(data: DTO.Store): Promise<Count>;
+    update(count: Count): Promise<Count>;
   }
 
   export namespace DTO {
     export interface Index {
       per_page: number;
-      sac_id: string;
+      issue_id: string;
     }
 
     export interface Store {
-      title: string;
-      description: string;
-      sac_id: string;
+      issue_id: string;
     }
 
     export interface Update {
-      title?: string;
-      description?: string;
-      sac_id?: string;
+      issue_id?: string;
     }
   }
 }

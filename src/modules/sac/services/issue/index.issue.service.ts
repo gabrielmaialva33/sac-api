@@ -12,9 +12,11 @@ export class IndexIssueService {
     private issuesRepository: IIssue.Repository
   ) {}
 
-  public async execute(): Promise<PaginationAwareObject> {
+  public async execute(
+    params: IIssue.DTO.Index
+  ): Promise<PaginationAwareObject> {
     try {
-      return this.issuesRepository.index();
+      return this.issuesRepository.index(params);
     } catch (err) {
       throw new AppError(`${err}`, 500);
     }

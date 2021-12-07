@@ -24,6 +24,11 @@ export class createCounts1638556942150 implements MigrationInterface {
             isNullable: false
           },
           {
+            name: 'is_deleted',
+            type: 'boolean',
+            default: false
+          },
+          {
             name: 'created_at',
             type: 'timestamp with time zone',
             default: 'now()'
@@ -32,6 +37,12 @@ export class createCounts1638556942150 implements MigrationInterface {
             name: 'updated_at',
             type: 'timestamp with time zone',
             default: 'now()'
+          },
+          {
+            name: 'deleted_at',
+            type: ' timestamp with time zone',
+            isNullable: true,
+            default: null
           }
         ]
       })
