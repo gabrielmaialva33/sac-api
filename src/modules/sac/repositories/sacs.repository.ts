@@ -18,7 +18,6 @@ export default class SacsRepository implements ISac.Repository {
     end_date,
     granularity
   }: ISac.DTO.Index): Promise<PaginationAwareObject> {
-    console.log({ start_date, end_date, granularity });
     return this.ormRepository
       .createQueryBuilder('sac')
       .where({ is_deleted: false })
