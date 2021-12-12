@@ -2,14 +2,17 @@ FROM library/postgres
 COPY ./init.sql /docker-entrypoint-initdb.d/
 
 FROM node:latest
+WORKDIR /home/app/
 
-WORKDIR /home/node/
+COPY package*.json ./
+
+RUN yarn install
 
 COPY . .
 
-RUN yarn
+COPY ormconfig.docker.json ./ormconfig.json
 
 EXPOSE 3333
 
-CMD ["/home/node/entrypoint.sh"]
+CMD ["/home/app/entrypoint.sh"]
 

@@ -1,12 +1,12 @@
 {
   "type": "postgres",
-  "host": "localhost", # use postgres for docker
+  "host": "postgres",
   "port": 5432,
   "username": "postgres",
   "password": "postgres",
   "database": "sac_api",
   "synchronize": false,
-  "logging": false,
+  "logging": true,
   "entities": [
     "./src/modules/**/entities/*.ts"
   ],
