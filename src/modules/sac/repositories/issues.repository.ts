@@ -1,56 +1,39 @@
-import { getRepository, Repository } from 'typeorm';
+import { EntityManager, getManager, getRepository, Repository } from 'typeorm';
 
 import { IIssue } from '@modules/sac/interfaces/issue.interfaces';
 import { PaginationAwareObject } from 'typeorm-pagination/dist/helpers/pagination';
 
 import Issue from '@modules/sac/entities/issue';
-import Count from '@modules/sac/entities/count';
 
 export default class IssuesRepository implements IIssue.Repository {
   private ormRepository: Repository<Issue>;
+  private ormManager: EntityManager;
 
   constructor() {
     this.ormRepository = getRepository(Issue);
+    this.ormManager = getManager();
   }
 
-  public async index(data: IIssue.DTO.Index): Promise<PaginationAwareObject> {
-    const { sac_id, start_date, end_date, granularity } = data;
+  public async index(params: IIssue.DTO.Index): Promise<PaginationAwareObject> {
+    const { sac_id } = params;
 
-    const granularity_grid = this.ormRepository
-      .createQueryBuilder('counts')
-      .select('count(*)', 'issues_total')
-      .from(Count, 'count')
-      .where(
-        'count.is_deleted = :is_deleted and count.created_at >= :start_date and count.created_at <= :end_date',
-        {
-          is_deleted: false,
-          start_date,
-          end_date
-        }
-      );
-
-    console.log(granularity_grid);
-
-    return this.ormRepository
-      .createQueryBuilder('issue')
-      .select('')
-      .addSelect((db) =>
-        db
-          .select('count(*)', 'issues_total')
-          .from(Issue, 'i')
-          .where(
-            'count.is_deleted = :is_deleted and count.created_at >= :start_date and count.created_at <= :end_date',
-            {
-              is_deleted: false,
-              start_date,
-              end_date
-            }
-          )
-      )
+    return await this.ormRepository
+      .createQueryBuilder('issues')
       .where('issue.sac_id = :sac_id and issue.is_deleted = :is_deleted', {
         sac_id: String(sac_id),
         is_deleted: false
       })
+      .leftJoin('issue.counts', 'count', 'count.is_deleted is false')
+      .loadRelationCountAndMap(
+        'issue.counts_amount',
+        'issue.counts',
+        'count',
+        (db) => {
+          return db.where('count.is_deleted is :is_deleted', {
+            is_deleted: false
+          });
+        }
+      )
       .paginate();
   }
 

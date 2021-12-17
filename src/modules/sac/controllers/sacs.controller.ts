@@ -6,13 +6,8 @@ import { IndexSacService, StoreSacService } from '@modules/sac/services/sac';
 
 export default class SacsController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { start_date, end_date } = request.query;
-
     const indexSac = container.resolve(IndexSacService);
-    const sacs = await indexSac.execute(<ISac.DTO.Index>{
-      start_date,
-      end_date
-    });
+    const sacs = await indexSac.execute();
 
     return response.json(sacs);
   }

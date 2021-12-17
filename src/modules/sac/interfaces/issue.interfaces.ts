@@ -11,9 +11,6 @@ export namespace IIssue {
   export namespace DTO {
     export interface Index {
       sac_id: string;
-      start_date: Date | string;
-      end_date: Date | string;
-      granularity: string;
     }
 
     export interface Store {

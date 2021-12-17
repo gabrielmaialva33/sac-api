@@ -12,35 +12,27 @@ export default class SacsRepository implements ISac.Repository {
     this.ormRepository = getRepository(Sac);
   }
 
-  public async index({
-    start_date,
-    end_date
-  }: ISac.DTO.Index): Promise<PaginationAwareObject> {
+  public async index(): Promise<PaginationAwareObject> {
     return this.ormRepository
       .createQueryBuilder('sac')
       .where({ is_deleted: false })
       .leftJoinAndSelect('sac.issues', 'issue', 'issue.is_deleted is false')
-      .loadRelationCountAndMap('sac.total', 'sac.issues', 'issue', (db) => {
-        return db.where({ is_deleted: false });
-      })
-      .leftJoinAndSelect(
-        'issue.counts',
-        'count',
-        'count.is_deleted is false and count.created_at > :start_date and count.created_at < :end_date',
-        {
-          start_date,
-          end_date
+      .loadRelationCountAndMap(
+        'sac.issues_amount',
+        'sac.issues',
+        'issue',
+        (db) => {
+          return db.where({ is_deleted: false });
         }
       )
-      .loadRelationCountAndMap('issue.total', 'issue.counts', 'count', (db) => {
-        return db.where(
-          'count.is_deleted is false and count.created_at > :start_date and count.created_at < :end_date',
-          {
-            start_date,
-            end_date
-          }
-        );
-      })
+      .loadRelationCountAndMap(
+        'issue.counts_amount',
+        'issue.counts',
+        'count',
+        (db) => {
+          return db.where({ is_deleted: false });
+        }
+      )
       .paginate();
   }
 

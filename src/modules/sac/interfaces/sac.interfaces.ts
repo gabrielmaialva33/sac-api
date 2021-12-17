@@ -3,17 +3,12 @@ import { PaginationAwareObject } from 'typeorm-pagination/dist/helpers/paginatio
 
 export namespace ISac {
   export interface Repository {
-    index(params: DTO.Index): Promise<PaginationAwareObject>;
+    index(): Promise<PaginationAwareObject>;
     store(data: DTO.Store): Promise<Sac>;
     update(sac: Sac): Promise<Sac>;
   }
 
   export namespace DTO {
-    export interface Index {
-      start_date: Date | string;
-      end_date: Date | string;
-    }
-
     export interface Store {
       name: string;
       url: string;
