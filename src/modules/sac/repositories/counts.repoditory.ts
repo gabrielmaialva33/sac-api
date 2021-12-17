@@ -1,23 +1,24 @@
+import { EntityManager, getManager, getRepository, Repository } from 'typeorm';
+
 import { ICount } from '@modules/sac/interfaces/icounts.interfaces';
 import Count from '@modules/sac/entities/count';
+
 import { PaginationAwareObject } from 'typeorm-pagination/dist/helpers/pagination';
-import { getRepository, Repository } from 'typeorm';
 
 export default class CountsRepository implements ICount.Repository {
   private ormRepository: Repository<Count>;
+  private ormManager: EntityManager;
 
   constructor() {
     this.ormRepository = getRepository(Count);
+    this.ormManager = getManager();
   }
-
   public async index(params: ICount.DTO.Index): Promise<PaginationAwareObject> {
-    const { per_page, issue_id } = params;
+    const { start_date, end_date, granularity, issue_id } = params;
 
-    return this.ormRepository
-      .createQueryBuilder('counts')
-      .select()
-      .where({ issue_id: String(issue_id), is_deleted: false })
-      .paginate(Number(per_page));
+    const query = `select i "date_time", ( select count(*) from counts as c where c.issue_id = $1 and c.created_at < i + interval '1 ${granularity}' and c.created_at > i ) "count" from generate_series($2, $3, '1 ${granularity}'::interval) i;`;
+
+    return this.ormManager.query(query, [issue_id, start_date, end_date]);
   }
 
   public async store(data: ICount.DTO.Store): Promise<Count> {

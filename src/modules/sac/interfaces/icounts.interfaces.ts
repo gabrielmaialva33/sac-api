@@ -10,7 +10,9 @@ export namespace ICount {
 
   export namespace DTO {
     export interface Index {
-      per_page: number;
+      start_date: Date | string;
+      end_date: Date | string;
+      granularity: string;
       issue_id: string;
     }
 

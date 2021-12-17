@@ -1,4 +1,4 @@
-import { container } from 'tsyringe';
+import { container, delay } from 'tsyringe';
 
 import { ISac } from '@modules/sac/interfaces/sac.interfaces';
 import SacsRepository from '@modules/sac/repositories/sacs.repository';
@@ -13,10 +13,10 @@ container.registerSingleton<ISac.Repository>('SacsRepository', SacsRepository);
 
 container.registerSingleton<IIssue.Repository>(
   'IssuesRepository',
-  IssuesRepository
+  delay(() => IssuesRepository)
 );
 
 container.registerSingleton<ICount.Repository>(
   'CountsRepository',
-  CountsRepository
+  delay(() => CountsRepository)
 );

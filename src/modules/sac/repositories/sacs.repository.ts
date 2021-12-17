@@ -4,7 +4,6 @@ import { ISac } from '@modules/sac/interfaces/sac.interfaces';
 import { PaginationAwareObject } from 'typeorm-pagination/dist/helpers/pagination';
 
 import Sac from '@modules/sac/entities/sac';
-import { ISOToDBDate } from '@modules/sac/utils';
 
 export default class SacsRepository implements ISac.Repository {
   private ormRepository: Repository<Sac>;
@@ -15,8 +14,7 @@ export default class SacsRepository implements ISac.Repository {
 
   public async index({
     start_date,
-    end_date,
-    granularity
+    end_date
   }: ISac.DTO.Index): Promise<PaginationAwareObject> {
     return this.ormRepository
       .createQueryBuilder('sac')
@@ -30,16 +28,16 @@ export default class SacsRepository implements ISac.Repository {
         'count',
         'count.is_deleted is false and count.created_at > :start_date and count.created_at < :end_date',
         {
-          start_date: ISOToDBDate(start_date),
-          end_date: ISOToDBDate(end_date)
+          start_date,
+          end_date
         }
       )
       .loadRelationCountAndMap('issue.total', 'issue.counts', 'count', (db) => {
         return db.where(
           'count.is_deleted is false and count.created_at > :start_date and count.created_at < :end_date',
           {
-            start_date: ISOToDBDate(start_date),
-            end_date: ISOToDBDate(end_date)
+            start_date,
+            end_date
           }
         );
       })

@@ -12,7 +12,6 @@ export namespace ISac {
     export interface Index {
       start_date: Date | string;
       end_date: Date | string;
-      granularity: string;
     }
 
     export interface Store {

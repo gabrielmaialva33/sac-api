@@ -1,23 +1,28 @@
 import 'reflect-metadata';
 import 'dotenv/config';
-
-import express, { Request, Response, NextFunction } from 'express';
-import cors from 'cors';
 import 'express-async-errors';
-
-import { pagination } from 'typeorm-pagination';
-
-import AppError from '@shared/errors/AppError';
-import routes from './routes';
-
 import '@shared/infra/typeorm';
 import '@shared/container';
 
+import cors from 'cors';
+import { pagination } from 'typeorm-pagination';
+
+import express, { Request, Response, NextFunction } from 'express';
+import AppError from '@shared/errors/AppError';
+
+import { logger } from '@shared/utils/logger';
+import routes from './routes';
+
+import pinoHttp from 'pino-http';
+
 const app = express();
+
+// - APP USES
 
 app.use(cors());
 app.use(express.json());
 app.use(pagination);
+app.use(pinoHttp({ logger }));
 app.use(routes);
 
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
