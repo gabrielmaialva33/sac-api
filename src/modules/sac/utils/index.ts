@@ -1,8 +1,10 @@
 import { differenceInMinutes, format } from 'date-fns';
+import moment from 'moment';
+
 import { Between } from 'typeorm';
 
-export function ISOToDBDate(isoDate: string | Date): string {
-  return format(new Date(isoDate), 'yyyy-MM-dd kk:mm:ss.SSS');
+export function ISOToDBDate(iso_date: string | Date): string {
+  return format(new Date(iso_date), 'yyyy-MM-dd kk:mm:ss.SSS');
 }
 
 export function DBDateToISO(db_date: Date) {
